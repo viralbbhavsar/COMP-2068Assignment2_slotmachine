@@ -187,11 +187,11 @@ function determineWinnings() {
 
 function createUI() {
     // instantiate my background
-    background = new createjs.Bitmap("assets/images/background.png");
+    background = new createjs.Bitmap("assets/images/background.jpg");
     game.addChild(background);
 
     // Spin Button
-    spinButton = new createjs.Bitmap("assets/images/spinButton.png");
+    spinButton = new createjs.Bitmap("assets/images/spinButton.jpg");
     spinButton.x = 323;
     spinButton.y = 376;
     game.addChild(spinButton);

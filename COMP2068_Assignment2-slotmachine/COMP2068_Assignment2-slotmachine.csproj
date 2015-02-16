@@ -59,6 +59,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\images\background.jpg" />
+    <Content Include="assets\images\betMaxButton.jpg" />
+    <Content Include="assets\images\betOneButton.jpg" />
+    <Content Include="assets\images\resetButton.jpg" />
+    <Content Include="assets\images\spinButton.jpg" />
     <Content Include="index.html" />
     <Content Include="Scripts\game.js.map" />
     <None Include="Web.Debug.config">
@@ -72,17 +77,23 @@
     <Content Include="css\game.css" />
     <Content Include="Scripts\game.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\lib\easeljs-0.8.0.min.js" />
+    <Content Include="Scripts\lib\preloadjs-0.6.0.min.js" />
+    <Content Include="Scripts\lib\soundjs-0.6.0.min.js" />
+    <Content Include="Scripts\lib\tweenjs-0.6.0.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="assests\images\" />
-    <Folder Include="Scripts\lib\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\game.ts" />
+    <TypeScriptCompile Include="Scripts\lib\createjs-lib.d.ts" />
+    <TypeScriptCompile Include="Scripts\lib\easeljs.d.ts" />
+    <TypeScriptCompile Include="Scripts\lib\preloadjs.d.ts" />
+    <TypeScriptCompile Include="Scripts\lib\soundjs.d.ts" />
+    <TypeScriptCompile Include="Scripts\lib\tweenjs.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
