@@ -5,6 +5,10 @@ var stage: createjs.Stage;
 var game: createjs.Container;
 var background: createjs.Bitmap;
 var spinButton: createjs.Bitmap;
+var betMaxButton: createjs.Bitmap;
+var resetButton: createjs.Bitmap;
+var betOneButton: createjs.Bitmap;
+
 var tiles: createjs.Bitmap[] = [];
 var tileContainers: createjs.Container[] = [];
 
@@ -222,15 +226,29 @@ function createUI():void {
 
     // Spin Button
     spinButton = new createjs.Bitmap("assets/images/spinButton.jpg");
-    spinButton.x = 323;
-    spinButton.y = 376;
+    spinButton.x = 315;
+    spinButton.y = 636;
     game.addChild(spinButton);
+
+    resetButton = new createjs.Bitmap("assets/images/resetButton.jpg");
+    resetButton.x = 60;
+    resetButton.y = 639;
+    game.addChild(resetButton);
+
+    betOneButton = new createjs.Bitmap("assets/images/betOneButton.jpg");
+    betOneButton.x = 138;
+    betOneButton.y = 638;
+    game.addChild(betOneButton);
+
+    betMaxButton = new createjs.Bitmap("assets/images/betMaxButton.jpg");
+    betMaxButton.x = 233;
+    betMaxButton.y = 638;
+    game.addChild(betMaxButton);
 
     spinButton.addEventListener("click", spinReels);
     spinButton.addEventListener("mouseover", spinButtonOver);
     spinButton.addEventListener("mouseout", spinButtonOut);
 }
-
 
 
 // Our Game Kicks off in here
