@@ -59,20 +59,20 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\images\apple.jpg" />
     <Content Include="assets\images\background.jpg" />
-    <Content Include="assets\images\banana.jpg" />
-    <Content Include="assets\images\bar.jpg" />
-    <Content Include="assets\images\bell.jpg" />
     <Content Include="assets\images\betMaxButton.jpg" />
     <Content Include="assets\images\betOneButton.jpg" />
+    <Content Include="assets\images\bigwin.jpg" />
     <Content Include="assets\images\blank.jpg" />
-    <Content Include="assets\images\cherry.jpg" />
     <Content Include="assets\images\closeButton.jpg" />
-    <Content Include="assets\images\grapes.jpg" />
-    <Content Include="assets\images\orange.jpg" />
+    <Content Include="assets\images\diamond.jpg" />
+    <Content Include="assets\images\dollar.jpg" />
+    <Content Include="assets\images\flower.jpg" />
     <Content Include="assets\images\resetButton.jpg" />
     <Content Include="assets\images\seven.jpg" />
     <Content Include="assets\images\spinButton.jpg" />
+    <Content Include="assets\images\srtawberry.jpg" />
     <Content Include="index.html" />
     <Content Include="Scripts\game.js.map" />
     <None Include="Web.Debug.config">
