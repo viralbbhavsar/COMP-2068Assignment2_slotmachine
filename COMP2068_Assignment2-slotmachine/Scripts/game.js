@@ -79,7 +79,7 @@ function spinReels() {
         if (turn > 0) {
             game.removeChild(tiles[tile]);
         }
-        tiles[tile] = new createjs.Bitmap("assets/images/" + spinResult[tile] + ".png");
+        tiles[tile] = new createjs.Bitmap("assets/images/" + spinResult[tile] + ".jpg");
         tiles[tile].x = 59 + (105 * tile);
         tiles[tile].y = 188;
 
@@ -196,23 +196,23 @@ function createUI() {
 
     // Spin Button
     spinButton = new createjs.Bitmap("assets/images/spinButton.jpg");
-    spinButton.x = 315;
-    spinButton.y = 636;
+    spinButton.x = 265;
+    spinButton.y = 497;
     game.addChild(spinButton);
 
     resetButton = new createjs.Bitmap("assets/images/resetButton.jpg");
-    resetButton.x = 60;
-    resetButton.y = 639;
+    resetButton.x = 46;
+    resetButton.y = 497;
     game.addChild(resetButton);
 
     betOneButton = new createjs.Bitmap("assets/images/betOneButton.jpg");
-    betOneButton.x = 138;
-    betOneButton.y = 638;
+    betOneButton.x = 120;
+    betOneButton.y = 497;
     game.addChild(betOneButton);
 
     betMaxButton = new createjs.Bitmap("assets/images/betMaxButton.jpg");
-    betMaxButton.x = 233;
-    betMaxButton.y = 638;
+    betMaxButton.x = 190;
+    betMaxButton.y = 497;
     game.addChild(betMaxButton);
 
     spinButton.addEventListener("click", spinReels);
