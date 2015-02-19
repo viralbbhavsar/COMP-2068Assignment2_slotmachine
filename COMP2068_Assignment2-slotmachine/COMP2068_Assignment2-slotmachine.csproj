@@ -67,6 +67,7 @@
     <Content Include="assets\images\betOneButton.jpg" />
     <Content Include="assets\images\blank.jpg" />
     <Content Include="assets\images\cherry.jpg" />
+    <Content Include="assets\images\closeButton.jpg" />
     <Content Include="assets\images\grapes.jpg" />
     <Content Include="assets\images\orange.jpg" />
     <Content Include="assets\images\resetButton.jpg" />
