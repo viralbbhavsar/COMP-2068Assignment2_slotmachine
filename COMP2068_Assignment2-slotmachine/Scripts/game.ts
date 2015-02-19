@@ -38,6 +38,7 @@ var blanks = 0;
 
 var playerBetText: createjs.Text;
 var playerMoneyText: createjs.Text;
+var winnerMoneyText: createjs.Text;
 
 function init() {
     canvas = document.getElementById("canvas");
@@ -50,8 +51,6 @@ function init() {
 }
 
 function gameLoop() {
-
-
     stage.update(); // Refreshes our stage
 }
 
@@ -81,8 +80,9 @@ function resetEverything() {
 // Event handlers
 
 function showPlayerStatus() {
-    showPlayBetText();
+    showPlayerBetText();
     showPlayerMoneyText();
+    showWinningMoneyText();
 }
 function spinButtonOut() {
     spinButton.alpha = 1.0;
@@ -93,27 +93,93 @@ function spinButtonOver() {
 }
 
 function spinReels() {
+    resetFruitTally();
     // Add Spin Reels code here
+
+    if (turn > 0) {
+        game.removeChildAt(8, 9, 10);
+    }
+    if (playerBet > playerMoney) {
+        if (confirm("You do not have enough money to place the bet.\nDo you want to play again?")) {
+            resetEverything();
+            showPlayerStatus();
+        }
+    }
+    else if (playerBet <= 0) {
+        alert("Please place a bet.");
+    }
+    else {
     spinResult = Reels();
     fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
     console.log(fruits);
-
-
+    
     for (var tile = 0; tile < 3; tile++) {
-        if (turn > 0) {
-            game.removeChild(tiles[tile]);
-        }
+
         tiles[tile] = new createjs.Bitmap("assets/images/" + spinResult[tile] + ".jpg");
         tiles[tile].x = 62 + (80 * tile);
         tiles[tile].y = 244;
-        
+
         game.addChild(tiles[tile]);
         console.log(game.getNumChildren());
     }
-
-
+        turn++;
+        console.log(winnings);
+        showPlayerStatus();
+        playerBet = 0;
+        showPlayerBetText();
+        showWinningMoneyText();
+    }
 }
 
+function betOneButtonOut() {
+    betOneButton.alpha = 1.0;
+    console.log("mouseout");
+}
+
+function betOneButtonOver() {
+    betOneButton.alpha = 0.4;
+    console.log("mouseover");
+}
+
+function betOneButtonClicked() {
+    playerBet += 1;
+    playerMoney -= 1;
+    showPlayerBetText();
+    showPlayerMoneyText();
+}
+
+function betMaxButtonOut() {
+    betMaxButton.alpha = 1.0;
+    console.log("mouseout");
+}
+
+function betMaxButtonOver() {
+    betMaxButton.alpha = 0.4;
+    console.log("mouseover");
+}
+
+function betMaxButtonClicked() {
+    playerBet += 70;
+    playerMoney -= 70;
+    showPlayerBetText();
+    showPlayerMoneyText();
+}
+
+function resetButtonOut() {
+    resetButton.alpha = 1.0;
+    console.log("mouseout");
+}
+
+function resetButtonOver() {
+    resetButton.alpha = 0.4;
+    console.log("mouseover");
+}
+
+function resetButtonClicked() {
+    resetEverything();
+    showPlayerBetText();
+    showPlayerMoneyText();
+}
 /* Utility function to check if a value falls within a range of bounds */
 function checkRange(value, lowerBounds, upperBounds) {
     if (value >= lowerBounds && value <= upperBounds) {
@@ -224,13 +290,37 @@ function determineWinnings() {
             winnings = playerBet * 5;
         }
         winNumber++;
-       // showWinMessage();
+        playerMoney += winnings;
     }
     else {
         lossNumber++;
-      //  showLossMessage();
     }
 
+}
+
+function showPlayerBetText() {
+    game.removeChild(playerBetText);
+    playerBetText = new createjs.Text("  " + playerBet, "22px  Consolas", "white");
+    playerBetText.x = 225;
+    playerBetText.y = 471;
+    game.addChild(playerBetText);
+}
+
+function showPlayerMoneyText() {
+    game.removeChild(playerMoneyText);
+    playerMoneyText = new createjs.Text("  " + playerMoney, "22px  Consolas", "white");
+    playerMoneyText.x = 109;
+    playerMoneyText.y = 471;
+    game.addChild(playerMoneyText);
+}
+
+function showWinningMoneyText() {
+    game.removeChild(winnerMoneyText);
+    winnerMoneyText = new createjs.Text("  " + winnings, "22px  Consolas", "white");
+    winnerMoneyText.x = 151;
+    winnerMoneyText.y = 418;
+    game.addChild(winnerMoneyText);
+    console.log(winnings);
 }
 
 function createUI():void {
@@ -264,7 +354,7 @@ function createUI():void {
     betOneButton.y = 497;
     game.addChild(betOneButton);
 
-    betOneButton.addEventListener("click", betOneButtonclicked);
+    betOneButton.addEventListener("click", betOneButtonClicked);
     betOneButton.addEventListener("mouseover", betOneButtonOver);
     betOneButton.addEventListener("mouseout", betOneButtonOut);
 
