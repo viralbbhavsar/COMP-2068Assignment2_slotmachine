@@ -23,6 +23,7 @@ var lossNumber = 0;
 var spinResult;
 var fruits = "";
 var winRatio = 0;
+var betMax = 70;
 
 /* Tally Variables */
 var grapes = 0;
@@ -33,6 +34,9 @@ var bars = 0;
 var bells = 0;
 var sevens = 0;
 var blanks = 0;
+
+var playerBetText;
+var playerMoneyText;
 
 function init() {
     canvas = document.getElementById("canvas");
@@ -60,7 +64,22 @@ function resetFruitTally() {
     blanks = 0;
 }
 
+function resetEverything() {
+    playerMoney = 1000;
+    winnings = 0;
+    jackpot = 5000;
+    turn = 0;
+    playerBet = 0;
+    winNumber = 0;
+    lossNumber = 0;
+    winRatio = 0;
+}
+
 // Event handlers
+function showPlayerStatus() {
+    showPlayBetText();
+    showPlayerMoneyText();
+}
 function spinButtonOut() {
     spinButton.alpha = 1.0;
 }
@@ -80,8 +99,8 @@ function spinReels() {
             game.removeChild(tiles[tile]);
         }
         tiles[tile] = new createjs.Bitmap("assets/images/" + spinResult[tile] + ".jpg");
-        tiles[tile].x = 59 + (105 * tile);
-        tiles[tile].y = 188;
+        tiles[tile].x = 62 + (80 * tile);
+        tiles[tile].y = 244;
 
         game.addChild(tiles[tile]);
         console.log(game.getNumChildren());
@@ -200,24 +219,39 @@ function createUI() {
     spinButton.y = 497;
     game.addChild(spinButton);
 
+    spinButton.addEventListener("click", spinReels);
+    spinButton.addEventListener("mouseover", spinButtonOver);
+    spinButton.addEventListener("mouseout", spinButtonOut);
+
+    //Reset Button
     resetButton = new createjs.Bitmap("assets/images/resetButton.jpg");
     resetButton.x = 46;
     resetButton.y = 497;
     game.addChild(resetButton);
 
+    resetButton.addEventListener("click", resetButtonClicked);
+    resetButton.addEventListener("mouseover", resetButtonOver);
+    resetButton.addEventListener("mouseout", resetButtonOut);
+
+    //Bet One button
     betOneButton = new createjs.Bitmap("assets/images/betOneButton.jpg");
     betOneButton.x = 120;
     betOneButton.y = 497;
     game.addChild(betOneButton);
 
+    betOneButton.addEventListener("click", betOneButtonclicked);
+    betOneButton.addEventListener("mouseover", betOneButtonOver);
+    betOneButton.addEventListener("mouseout", betOneButtonOut);
+
+    //Bet Max Button
     betMaxButton = new createjs.Bitmap("assets/images/betMaxButton.jpg");
     betMaxButton.x = 190;
     betMaxButton.y = 497;
     game.addChild(betMaxButton);
 
-    spinButton.addEventListener("click", spinReels);
-    spinButton.addEventListener("mouseover", spinButtonOver);
-    spinButton.addEventListener("mouseout", spinButtonOut);
+    betMaxButton.addEventListener("click", betMaxButtonClicked);
+    betMaxButton.addEventListener("mouseover", betMaxButtonOver);
+    betMaxButton.addEventListener("mouseout", betMaxButtonOut);
 }
 
 // Our Game Kicks off in here
@@ -229,7 +263,8 @@ function main() {
 
     // Create Slotmachine User Interface
     createUI();
-
     stage.addChild(game);
+    resetEverything();
+    showPlayerStatus();
 }
 //# sourceMappingURL=game.js.map
