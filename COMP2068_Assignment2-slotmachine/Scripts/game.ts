@@ -8,6 +8,7 @@ var spinButton: createjs.Bitmap;
 var betMaxButton: createjs.Bitmap;
 var resetButton: createjs.Bitmap;
 var betOneButton: createjs.Bitmap;
+var closeButton: createjs.Bitmap;
 
 var tiles: createjs.Bitmap[] = [];
 var tileContainers: createjs.Container[] = [];
@@ -180,6 +181,22 @@ function resetButtonClicked() {
     showPlayerBetText();
     showPlayerMoneyText();
 }
+function closeButtonClicked() {
+    if(confirm("Do you really want to quit the game?")) {
+            close();
+        }
+}
+
+function closeButtonOut() {
+    closeButton.alpha = 1.0;
+    console.log("mouseout");
+}
+
+function closeButtonOver() {
+    closeButton.alpha = 1.9;
+    console.log("mouseover");
+}
+
 /* Utility function to check if a value falls within a range of bounds */
 function checkRange(value, lowerBounds, upperBounds) {
     if (value >= lowerBounds && value <= upperBounds) {
@@ -300,25 +317,25 @@ function determineWinnings() {
 
 function showPlayerBetText() {
     game.removeChild(playerBetText);
-    playerBetText = new createjs.Text("  " + playerBet, "22px  Consolas", "white");
-    playerBetText.x = 225;
-    playerBetText.y = 471;
+    playerBetText = new createjs.Text("$" + playerBet, "24px Arial", "Black");
+    playerBetText.x = 223;
+    playerBetText.y = 464;
     game.addChild(playerBetText);
 }
 
 function showPlayerMoneyText() {
     game.removeChild(playerMoneyText);
-    playerMoneyText = new createjs.Text("  " + playerMoney, "22px  Consolas", "white");
-    playerMoneyText.x = 109;
-    playerMoneyText.y = 471;
+    playerMoneyText = new createjs.Text("$"+ playerMoney, "24px Arial", "Black");
+    playerMoneyText.x = 106;
+    playerMoneyText.y = 464;
     game.addChild(playerMoneyText);
 }
 
 function showWinningMoneyText() {
     game.removeChild(winnerMoneyText);
-    winnerMoneyText = new createjs.Text("  " + winnings, "22px  Consolas", "white");
-    winnerMoneyText.x = 151;
-    winnerMoneyText.y = 418;
+    winnerMoneyText = new createjs.Text("$" + winnings, "24px Arial", "Black");
+    winnerMoneyText.x = 150;
+    winnerMoneyText.y = 412;
     game.addChild(winnerMoneyText);
     console.log(winnings);
 }
@@ -367,6 +384,16 @@ function createUI():void {
     betMaxButton.addEventListener("click", betMaxButtonClicked);
     betMaxButton.addEventListener("mouseover", betMaxButtonOver);
     betMaxButton.addEventListener("mouseout", betMaxButtonOut);
+
+    //Close Button
+    closeButton = new createjs.Bitmap("assets/images/closeButton.jpg");
+    closeButton.x = 295;
+    closeButton.y = 179;
+    game.addChild(closeButton);
+
+    closeButton.addEventListener("click", closeButtonClicked);
+    closeButton.addEventListener("mouseover", closeButtonOver);
+    closeButton.addEventListener("mouseout", closeButtonOut);
 }
 
 
