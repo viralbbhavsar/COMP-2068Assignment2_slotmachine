@@ -119,6 +119,7 @@ function spinReels() {
             console.log(game.getNumChildren());
         }
         turn++;
+        determineWinnings();
         console.log(winnings);
         showPlayerStatus();
         playerBet = 0;
