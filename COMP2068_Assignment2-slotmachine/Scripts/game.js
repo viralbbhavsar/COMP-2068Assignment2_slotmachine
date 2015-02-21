@@ -1,7 +1,7 @@
 ﻿var canvas;
 var stage;
 
-// Game Objects
+// Objects that are going to be used throughout the game
 var game;
 var background;
 var spinButton;
@@ -13,7 +13,7 @@ var closeButton;
 var tiles = [];
 var tileContainers = [];
 
-// Game Variables
+// Variables
 var playerMoney = 1000;
 var winnings = 0;
 var jackpot = 5000;
@@ -22,24 +22,26 @@ var playerBet = 0;
 var winNumber = 0;
 var lossNumber = 0;
 var spinResult;
-var fruits = "";
+var results = "";
 var winRatio = 0;
 var betMax = 70;
 
-/* Tally Variables */
-var grapes = 0;
-var bananas = 0;
-var oranges = 0;
-var cherries = 0;
-var bars = 0;
-var bells = 0;
-var sevens = 0;
+//Reel Variables
+var apple = 0;
+var bigwin = 0;
+var diamond = 0;
+var dollar = 0;
+var flower = 0;
+var srtawberry = 0;
+var seven = 0;
 var blanks = 0;
 
+//Text objects to show user winnings, money and bet
 var playerBetText;
 var playerMoneyText;
 var winnerMoneyText;
 
+// fucntion which is called when game is loaded
 function init() {
     canvas = document.getElementById("canvas");
     stage = new createjs.Stage(canvas);
@@ -54,18 +56,19 @@ function gameLoop() {
     stage.update(); // Refreshes our stage
 }
 
-/* Utility function to reset all fruit tallies */
-function resetFruitTally() {
-    grapes = 0;
-    bananas = 0;
-    oranges = 0;
-    cherries = 0;
-    bars = 0;
-    bells = 0;
-    sevens = 0;
+// function to reset all reel variables
+function resetReels() {
+    apple = 0;
+    bigwin = 0;
+    diamond = 0;
+    dollar = 0;
+    flower = 0;
+    srtawberry = 0;
+    seven = 0;
     blanks = 0;
 }
 
+// function to reset all variables
 function resetEverything() {
     playerMoney = 1000;
     winnings = 0;
@@ -75,14 +78,18 @@ function resetEverything() {
     winNumber = 0;
     lossNumber = 0;
     winRatio = 0;
+    winnings = 0;
 }
 
 // Event handlers
+// function that shows player's standings in the game
 function showPlayerStatus() {
     showPlayerBetText();
     showPlayerMoneyText();
     showWinningMoneyText();
 }
+
+// function for buttons like hover over, hover out and click events
 function spinButtonOut() {
     spinButton.alpha = 1.0;
 }
@@ -91,24 +98,26 @@ function spinButtonOver() {
     spinButton.alpha = 0.5;
 }
 
-function spinReels() {
-    resetFruitTally();
+function spinButtonClicked() {
+    resetReels();
 
-    // Add Spin Reels code here
+    // conditions to check if user is playing more than one time then removes previous object
     if (turn > 0) {
         game.removeChildAt(8, 9, 10);
+        //condition to check if user has enough money to bet or not
     }
     if (playerBet > playerMoney) {
         if (confirm("You do not have enough money to place the bet.\nDo you want to play again?")) {
             resetEverything();
+            resetReels();
             showPlayerStatus();
         }
     } else if (playerBet <= 0) {
         alert("Please place a bet.");
     } else {
         spinResult = Reels();
-        fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
-        console.log(fruits);
+        results = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
+        console.log(results);
 
         for (var tile = 0; tile < 3; tile++) {
             tiles[tile] = new createjs.Bitmap("assets/images/" + spinResult[tile] + ".jpg");
@@ -134,7 +143,7 @@ function betOneButtonOut() {
 }
 
 function betOneButtonOver() {
-    betOneButton.alpha = 0.4;
+    betOneButton.alpha = 0.6;
     console.log("mouseover");
 }
 
@@ -151,7 +160,7 @@ function betMaxButtonOut() {
 }
 
 function betMaxButtonOver() {
-    betMaxButton.alpha = 0.4;
+    betMaxButton.alpha = 0.6;
     console.log("mouseover");
 }
 
@@ -168,12 +177,13 @@ function resetButtonOut() {
 }
 
 function resetButtonOver() {
-    resetButton.alpha = 0.4;
+    resetButton.alpha = 0.6;
     console.log("mouseover");
 }
 
 function resetButtonClicked() {
     resetEverything();
+    resetReels();
     showPlayerBetText();
     showPlayerMoneyText();
 }
@@ -189,7 +199,7 @@ function closeButtonOut() {
 }
 
 function closeButtonOver() {
-    closeButton.alpha = 1.9;
+    closeButton.alpha = 0.6;
     console.log("mouseover");
 }
 
@@ -202,8 +212,7 @@ function checkRange(value, lowerBounds, upperBounds) {
     }
 }
 
-/* When this function is called it determines the betLine results.
-e.g. Bar - Orange - Banana */
+// When this function is called it determines the betLine results.
 function Reels() {
     var betLine = [" ", " ", " "];
     var outCome = [0, 0, 0];
@@ -216,32 +225,32 @@ function Reels() {
                 blanks++;
                 break;
             case checkRange(outCome[spin], 28, 37):
-                betLine[spin] = "grapes";
-                grapes++;
+                betLine[spin] = "apple";
+                apple++;
                 break;
             case checkRange(outCome[spin], 38, 46):
-                betLine[spin] = "banana";
-                bananas++;
+                betLine[spin] = "diamond";
+                bigwin++;
                 break;
             case checkRange(outCome[spin], 47, 54):
-                betLine[spin] = "orange";
-                oranges++;
+                betLine[spin] = "dollar";
+                diamond++;
                 break;
             case checkRange(outCome[spin], 55, 59):
-                betLine[spin] = "cherry";
-                cherries++;
+                betLine[spin] = "flower";
+                dollar++;
                 break;
             case checkRange(outCome[spin], 60, 62):
-                betLine[spin] = "bar";
-                bars++;
+                betLine[spin] = "bigwin";
+                flower++;
                 break;
             case checkRange(outCome[spin], 63, 64):
-                betLine[spin] = "bell";
-                bells++;
+                betLine[spin] = "srtawberry";
+                srtawberry++;
                 break;
             case checkRange(outCome[spin], 65, 65):
                 betLine[spin] = "seven";
-                sevens++;
+                seven++;
                 break;
         }
     }
@@ -251,39 +260,39 @@ function Reels() {
 /* This function calculates the player's winnings, if any */
 function determineWinnings() {
     if (blanks == 0) {
-        if (grapes == 3) {
+        if (apple == 3) {
             winnings = playerBet * 10;
-        } else if (bananas == 3) {
+        } else if (bigwin == 3) {
             winnings = playerBet * 20;
-        } else if (oranges == 3) {
+        } else if (diamond == 3) {
             winnings = playerBet * 30;
-        } else if (cherries == 3) {
+        } else if (dollar == 3) {
             winnings = playerBet * 40;
-        } else if (bars == 3) {
+        } else if (flower == 3) {
             winnings = playerBet * 50;
-        } else if (bells == 3) {
+        } else if (srtawberry == 3) {
             winnings = playerBet * 75;
-        } else if (sevens == 3) {
+        } else if (seven == 3) {
             winnings = playerBet * 100;
-        } else if (grapes == 2) {
+        } else if (apple == 2) {
             winnings = playerBet * 2;
-        } else if (bananas == 2) {
+        } else if (bigwin == 2) {
             winnings = playerBet * 2;
-        } else if (oranges == 2) {
+        } else if (diamond == 2) {
             winnings = playerBet * 3;
-        } else if (cherries == 2) {
+        } else if (dollar == 2) {
             winnings = playerBet * 4;
-        } else if (bars == 2) {
+        } else if (flower == 2) {
             winnings = playerBet * 5;
-        } else if (bells == 2) {
+        } else if (srtawberry == 2) {
             winnings = playerBet * 10;
-        } else if (sevens == 2) {
+        } else if (seven == 2) {
             winnings = playerBet * 20;
         } else {
             winnings = playerBet * 1;
         }
 
-        if (sevens == 1) {
+        if (seven == 1) {
             winnings = playerBet * 5;
         }
         winNumber++;
@@ -293,6 +302,7 @@ function determineWinnings() {
     }
 }
 
+// this funciton shows player's bet on screen
 function showPlayerBetText() {
     game.removeChild(playerBetText);
     playerBetText = new createjs.Text("$" + playerBet, "24px Arial", "Black");
@@ -301,6 +311,7 @@ function showPlayerBetText() {
     game.addChild(playerBetText);
 }
 
+// this funciton shows player's money on screen
 function showPlayerMoneyText() {
     game.removeChild(playerMoneyText);
     playerMoneyText = new createjs.Text("$" + playerMoney, "24px Arial", "Black");
@@ -309,6 +320,7 @@ function showPlayerMoneyText() {
     game.addChild(playerMoneyText);
 }
 
+// this funciton shows player's winnings on screen
 function showWinningMoneyText() {
     game.removeChild(winnerMoneyText);
     winnerMoneyText = new createjs.Text("$" + winnings, "24px Arial", "Black");
@@ -329,7 +341,7 @@ function createUI() {
     spinButton.y = 497;
     game.addChild(spinButton);
 
-    spinButton.addEventListener("click", spinReels);
+    spinButton.addEventListener("click", spinButtonClicked);
     spinButton.addEventListener("mouseover", spinButtonOver);
     spinButton.addEventListener("mouseout", spinButtonOut);
 
